@@ -1,6 +1,7 @@
 <template>
   <h1>{{ header }}</h1>
-  <input type="text" v-model="header" />
+  <input type="text" placeholder="Add An Item" v-model="newItem" @keyup.enter="items.push(newItem)"/>
+  <button class="btn" @click="items.push(newItem)">Save Item</button>
   <ul>
     <li v-for="item in items">{{ item }}</li>
   </ul>
@@ -12,6 +13,7 @@ export default {
   data() {
     return {
       header: "Shopping List App",
+      newItem:[],
       items: [
         'Chicken',
         'Rice',
@@ -19,10 +21,15 @@ export default {
       ]
     }
   },
+  methods:{
+    addItems(){
+      
+    }
+  }
 }
 </script>
 
-<style>
+<!-- <style>
 body {
   background-color: lightgray;
 }
@@ -40,4 +47,4 @@ input {
   height: 600px;
   width: 600px;
 }
-</style>
+</style> -->
