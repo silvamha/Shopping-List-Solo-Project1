@@ -1,7 +1,14 @@
 <template v-cloak>
-  <h1>{{ header }}</h1>
-  <input type="text" placeholder="Add An Item" v-model="newItem" @keyup.enter="saveItem" />
-  <button class="btn" @click="saveItem">Save Item</button>
+  <div class="header">
+    <h1>{{ header.toLocaleUpperCase() }}</h1>
+    <button v-if="state === 'default'" @click="changeState('edit')">Add Item</button>
+    <button @click="changeState('default')">Cancel</button>
+  </div>
+
+  <div if="state === 'edit'" class="add-item-form">
+    <input type="text" placeholder="Add an Item" v-model="newItem" @keyup.enter="saveItem" />
+    <button class="btn" @click="saveItem">Save Item</button>
+  </div>
   <ul>
     <p v-if="items.length === 0">Nice Job! You bought all you</p>
     <li v-for="item in items">{{ item }}</li>
@@ -13,8 +20,9 @@ export default {
   name: "App",
   data() {
     return {
+      state: 'default',
       header: "Shopping List App",
-      newItem: [],
+      newItem: '',
       items: [
         // 'Chicken',
         // 'Rice',
@@ -23,31 +31,51 @@ export default {
     }
   },
   methods: {
-    saveItem() {
-      this.items.push(this.newItem)
+    saveItem: function () {
+      this.items.unshift(this.newItem)
+      this.newItem = ''
+    },
+    changeState: function () {
+      this.state = newState
       this.newItem = ''
     }
   }
 }
 </script>
 
-<style>
+<style lang="css">
 body {
-  background-color: lightgray;
-}
-
-input {
-  width: 300px;
-  height: 30px;
+  background-color: lightskyblue;
 }
 
 #app {
   display: flex;
   flex-direction: column;
-  justify-items: center;
-  margin: auto;
+  margin: 10px;
   height: 600px;
+  width: auto;
+  background-color: lightsalmon;
+}
+
+h1 {
+  margin: auto;
+}
+
+.add-item-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
   width: 600px;
+  margin: auto;
+  background-color: white;
+  border-radius: 10px;
+}
+
+input {
+  width: 300px;
+  height: 30px;
 }
 
 .btn {
@@ -57,6 +85,11 @@ input {
   border-radius: 5px;
   background-color: blue;
   color: white;
+}
+
+li {
+  list-style: none;
+  font-size: 1.5em;
 }
 
 [v-cloak] {
