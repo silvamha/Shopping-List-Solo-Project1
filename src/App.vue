@@ -1,45 +1,15 @@
 <template v-cloak>
-  <div class="header">
-    <h1>{{ header.toLocaleUpperCase() }}</h1>
-    <button v-if="state === 'default'" @click="changeState('edit')">Add Item</button>
-    <button @click="changeState('default')">Cancel</button>
-  </div>
-
-  <div if="state === 'edit'" class="add-item-form">
-    <input type="text" placeholder="Add an Item" v-model="newItem" @keyup.enter="saveItem" />
-    <button class="btn" @click="saveItem">Save Item</button>
-  </div>
-  <ul>
-    <p v-if="items.length === 0">Nice Job! You bought all you</p>
-    <li v-for="item in items">{{ item }}</li>
-  </ul>
+<shoppinglist></shoppinglist>
 </template>
 
 <script>
+import Shoppinglist from './components/ShoppingList.vue'
 export default {
   name: "App",
-  data() {
-    return {
-      state: 'default',
-      header: "Shopping List App",
-      newItem: '',
-      items: [
-        // 'Chicken',
-        // 'Rice',
-        // 'Sugar',
-      ]
-    }
+  components: {
+Shoppinglist
   },
-  methods: {
-    saveItem: function () {
-      this.items.unshift(this.newItem)
-      this.newItem = ''
-    },
-    changeState: function () {
-      this.state = newState
-      this.newItem = ''
-    }
-  }
+
 }
 </script>
 
